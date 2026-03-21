@@ -98,6 +98,22 @@ This project implements OpenHaystack firmware for ESP32C3 chips, allowing you to
 2. **Device not visible in Find My**
    - Ensure correct public keys are uploaded
    - Verify keys are registered in the OpenHaystack or equivalent app
+   - Try the [`fix-hint-byte`](https://github.com/timbeh/esp32c3-openhaystack/tree/fix-hint-byte) branch which adds a missing hint byte (see below)
+
+### Testing Branch: Hint Byte Fix
+
+There is a testing branch [`fix-hint-byte`](https://github.com/timbeh/esp32c3-openhaystack/tree/fix-hint-byte) that adds a missing hint byte to the advertisement data. The current main branch advertises 29 bytes, but some Find My collecting devices may expect 30 bytes per the official OpenHaystack format. This fix adds the hint byte (`0x00`) to match Apple's Find My network advertisement specification.
+
+If your beacon is not being detected by the Find My network, try the `fix-hint-byte` branch:
+
+```bash
+git checkout fix-hint-byte
+pio run -t upload
+```
+
+**Please report back** if this improves detection by opening an issue or commenting on the relevant GitHub issue.
+
+### Common Issues (continued)
 
 3. **Port not detected**
    - Install correct USB drivers for your ESP32C3 board
