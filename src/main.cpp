@@ -197,8 +197,9 @@ void loop() {
         mfgData.push_back(public_key[i]);
     }
     
-    // Add only the first two bits (remove the hint byte)
+    // Add only the first two bits
     mfgData.push_back(public_key[0] >> 6);
+    mfgData.push_back(0x00);  // Hint byte
     
     // Log the manufacturer data
     Serial.printf("Raw manufacturer data length: %d bytes\n", mfgData.length());
